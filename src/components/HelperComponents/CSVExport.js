@@ -7,7 +7,6 @@ export const ExportCSV = ({ csvData, fileName }) => {
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
   const fileExtension = ".xlsx";
   const dataObjectLength = csvData.length;
-  const dataArrayLength = csvData[0].length;
 
   const exportToCSV = (csvData, fileName) => {
     const ws = XLSX.utils.json_to_sheet(csvData[0]);
@@ -16,11 +15,16 @@ export const ExportCSV = ({ csvData, fileName }) => {
     const data = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(data, fileName + fileExtension);
   };
-  console.log(dataObjectLength, dataArrayLength);
   if (dataObjectLength !== 0) {
+    const dataArrayLength = csvData[0].length;
     if (dataArrayLength !== 0) {
       return (
-        <div className="right floated" data-inverted=""   data-position="left center"  data-tooltip="Export Cart items as Excel">
+        <div
+          className="right floated"
+          data-inverted=""
+          data-position="left center"
+          data-tooltip="Export Cart items as Excel"
+        >
           <i
             onClick={(e) => exportToCSV(csvData, fileName)}
             className="circular download blue icon"
